@@ -1,0 +1,589 @@
+{
+	"info": {
+		"_postman_id": "b6ba1e53-1eda-4ddc-a6fa-ec8a12e0c0ae",
+		"name": "Petstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28709106"
+	},
+	"item": [
+		{
+			"name": "Pet Ekleme (Post)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Gövde eşleme dizesi\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Mia\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Yanıt durum kodu 200'dür\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Kimlik alanının negatif olmayan bir tam sayı olduğunu doğrulayın\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.id).to.be.a('number').and.to.satisfy((id) => id >= 0, \"id should be a non-negative integer\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Ad alanının boş olmayan bir dize olduğunu doğrulayın\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"photoUrls dizisinin ve en az bir öğenin varlığını doğrulayın\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.photoUrls).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 12345,\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Kedi\"\r\n  },\r\n  \"name\": \"Mia\",\r\n  \"photoUrls\": [\r\n    \"https://i.dha.com.tr/i/dha/75/750x0/6453651c50acca2b40a38cae\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 1,\r\n      \"name\": \"sevimli\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Bilgisi Getirme (Get)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Durum kodu 200 tamam\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıt evcil hayvan ayrıntılarını içeriyor\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"name\");\r",
+							"    pm.expect(jsonData).to.have.property(\"tags\");\r",
+							"    pm.expect(jsonData).to.have.property(\"status\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/12345",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Güncelleme (Put)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Fixed tests\r",
+							"pm.test(\"Durum kodu 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtta bir id özelliği var\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtın, kimliği ve adı olan bir kategori özelliği var\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.nested.property('category.id');\r",
+							"    pm.expect(pm.response.json()).to.have.nested.property('category.name');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtın bir name özelliği var\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('name');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtta bir photoUrls özelliği var\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('photoUrls');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtta, kimliği ve adı olan bir etiket özelliği var\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.nested.property('tags[0].id');\r",
+							"    pm.expect(pm.response.json()).to.have.nested.property('tags[0].name');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtta durum özelliği var\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('status');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 12345,\r\n  \"category\": {\r\n    \"id\": 2,\r\n    \"name\": \"Köpek\"\r\n  },\r\n  \"name\": \"Max\",\r\n  \"photoUrls\": [\r\n    \"https://cdn1.ntv.com.tr/gorsel/7uyYG53JqkuRuEzYwKNl8g.jpg?width=1000&mode=crop&scale=both\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 2,\r\n      \"name\": \"oyuncu\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Petlerin Listesi (Get)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Evcil hayvanların listelendiğini doğrula\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    // Evcil hayvanların listesinin boş olmadığını doğrula\r",
+							"    pm.expect(responseData.length).to.be.above(0);\r",
+							"\r",
+							"    // Her bir evcil hayvanın bilgilerini doğrula\r",
+							"    for (let i = 0; i < responseData.length; i++) {\r",
+							"        pm.expect(responseData[i].id).to.exist;\r",
+							"        pm.expect(responseData[i].name).to.be.a('string');\r",
+							"        pm.expect(responseData[i].status).to.be.oneOf(['available', 'pending', 'sold']);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=available",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "available"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Resimlerini Getirme (GET)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Pet Resimlerini Getirme Testi\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Pet resimleri alındı\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 12345,\r\n  \"tags\": [\r\n    {\r\n      \"id\": 2\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/12345",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kategori Bilgisi Getirme (GET)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Kategori Bilgisi Doğrulama Testi\", function () {\r",
+							"    pm.response.to.have.status(200); // 200 OK yanıt kodunu kontrol ediyoruz\r",
+							"\r",
+							"    // API yanıtında \"category\" alanı olmalı\r",
+							"    pm.response.to.have.jsonBody('category');\r",
+							"\r",
+							"    // Kategori bilgisini alıyoruz\r",
+							"    var categoryInfo = pm.response.json().category;\r",
+							"\r",
+							"    // Kategori bilgisinin var olup olmadığını kontrol ediyoruz\r",
+							"    pm.expect(categoryInfo).to.not.be.null; // Kategori bilgisi null olmamalı\r",
+							"\r",
+							"    // Kategori bilgisini kontrol ediyoruz\r",
+							"    pm.expect(categoryInfo).to.be.an('object'); // Kategori bilgisi bir nesne olmalı\r",
+							"    pm.expect(categoryInfo).to.have.property('id'); // Kategori bilgisinde \"id\" alanı olmalı\r",
+							"    pm.expect(categoryInfo).to.have.property('name'); // Kategori bilgisinde \"name\" alanı olmalı\r",
+							"\r",
+							"    // Kategori ID'sini ve ismini kontrol ediyoruz\r",
+							"    pm.expect(categoryInfo.id).to.be.a('number'); // Kategori ID'si bir sayı olmalı\r",
+							"    pm.expect(categoryInfo.name).to.be.a('string'); // Kategori ismi bir metin olmalı\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/12345",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Durumunu Güncelleme (PUT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Durum kodu 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtta bir id özelliği var\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtta bir photoUrls özelliği var\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.photoUrls).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtın bir etiket özelliği var\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.tags).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yanıtta durum özelliği var\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.exist;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 12345,\r\n  \"status\": \"sold\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Etiketini Güncelleme (PUT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Durum kodu 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 12345,\r\n  \"tags\": [\r\n    {\r\n      \"id\": \"stqwt\",\r\n      \"name\": \"yavru\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kategori Listesi (GET)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Evcil hayvan kategori listesini başarıyla getirildiğini doğrula\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Kategori özelliklerini doğrula\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    responseData.forEach(function (pet) {\r",
+							"        pm.expect(pet).to.have.property('id').that.is.a('number');\r",
+							"        pm.expect(pet).to.have.property('name').that.is.a('string');\r",
+							"        pm.expect(pet).to.have.property('photoUrls').that.is.an('array');\r",
+							"\r",
+							"        const tags = pet.tags;\r",
+							"        pm.expect(tags).to.be.an('array');\r",
+							"\r",
+							"        tags.forEach(function (tag) {\r",
+							"            pm.expect(tag).to.have.property('id').that.is.a('number');\r",
+							"            pm.expect(tag).to.have.property('name').that.is.a('string');\r",
+							"        });\r",
+							"\r",
+							"        pm.expect(pet).to.have.property('status').that.is.a('string').and.equals('available');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=available",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "available"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Silme (Delete)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const petIdToDelete = 12345;\r",
+							"\r",
+							"pm.test(\"Evcil hayvanı başarıyla sildiğini doğrula\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"    pm.expect(pm.response.json().message).to.equal(`${petIdToDelete}`);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/12345",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"12345"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
