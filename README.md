@@ -1,4 +1,4 @@
-👨🏻‍💻 (petName=kedi) Pet ekle
+👨🏻‍💻 (petName=Mia) Pet ekle
 
 pm.test("Gövde eşleme dizesi", function () {
     pm.expect(pm.response.text()).to.include("Mia");
