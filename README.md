@@ -1,4 +1,4 @@
-👨🏻‍💻 (petName=Mia) Pet ekle
+👨🏻‍💻 Pet ekle (petName=Mia) 
 
 pm.test("Gövde eşleme dizesi", function () {
     pm.expect(pm.response.text()).to.include("Mia");
@@ -48,3 +48,36 @@ pm.test("Yanıt evcil hayvan ayrıntılarını içeriyor", function () {
 
 ![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/e42de68e-549c-4229-bbd1-6d896b8453f9)
 
+👨🏻‍💻 Pet Güncelleme (petName=Max) (https://petstore.swagger.io/v2/pet)
+
+pm.test("Durum kodu 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Yanıtta bir id özelliği var", function () {
+    pm.expect(pm.response.json()).to.have.property('id');
+});
+
+pm.test("Yanıtın, kimliği ve adı olan bir kategori özelliği var", function () {
+    pm.expect(pm.response.json()).to.have.nested.property('category.id');
+    pm.expect(pm.response.json()).to.have.nested.property('category.name');
+});
+
+pm.test("Yanıtın bir name özelliği var", function () {
+    pm.expect(pm.response.json()).to.have.property('name');
+});
+
+pm.test("Yanıtta bir photoUrls özelliği var", function () {
+    pm.expect(pm.response.json()).to.have.property('photoUrls');
+});
+
+pm.test("Yanıtta, kimliği ve adı olan bir etiket özelliği var", function () {
+    pm.expect(pm.response.json()).to.have.nested.property('tags[0].id');
+    pm.expect(pm.response.json()).to.have.nested.property('tags[0].name');
+});
+
+pm.test("Yanıtta durum özelliği var", function () {
+    pm.expect(pm.response.json()).to.have.property('status');
+});
+
+![Pet Güncelleme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/778b9ff6-a661-4274-91d2-2a7030d25bda)
