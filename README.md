@@ -31,3 +31,20 @@ pm.test("photoUrls dizisinin ve en az bir öğenin varlığını doğrulayın", 
 
 ![Pet Ekle (Post)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/d94028d8-eeb0-463a-b676-ab3d80424819)
 
+
+👨🏻‍💻 Pet Bilgisi Getirme (https://petstore.swagger.io/v2/pet/12345)
+
+pm.test("Durum kodu 200 tamam", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Yanıt evcil hayvan ayrıntılarını içeriyor", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property("id");
+    pm.expect(jsonData).to.have.property("name");
+    pm.expect(jsonData).to.have.property("tags");
+    pm.expect(jsonData).to.have.property("status");
+});
+
+![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/e42de68e-549c-4229-bbd1-6d896b8453f9)
+
