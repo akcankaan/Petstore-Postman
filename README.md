@@ -1,4 +1,5 @@
-👨🏻‍💻 Pet ekle (petName=Mia) 
+ #### 👨🏻‍💻 Pet ekle (petName=Mia) 
+***
 
 <details>
   <summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
@@ -32,7 +33,6 @@ pm.test("photoUrls dizisinin ve en az bir öğenin varlığını doğrulayın", 
     pm.expect(responseData.photoUrls).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1);
 });
 ```
-
 </details>
 
 ![Pet Ekle (Post)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/d94028d8-eeb0-463a-b676-ab3d80424819)
