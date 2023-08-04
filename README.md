@@ -108,4 +108,24 @@ pm.test("Pet Resimlerini Getirme Testi", function () {
 
 ![Pet Resimleri Getirme](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/60ede347-8875-4872-9992-24335696fdd3)
 
+👨🏻‍💻 Petlerin Bilgisi Getirme (https://petstore.swagger.io/v2/pet/12345)
+
+pm.test("Kategori Bilgisi Doğrulama Testi", function () {
+    pm.response.to.have.status(200);
+
+    pm.response.to.have.jsonBody('category');
+
+    var categoryInfo = pm.response.json().category;
+
+    pm.expect(categoryInfo).to.not.be.null;
+
+    pm.expect(categoryInfo).to.be.an('object');
+    pm.expect(categoryInfo).to.have.property('id');
+    pm.expect(categoryInfo).to.have.property('name'); 
+    pm.expect(categoryInfo.id).to.be.a('number');
+    pm.expect(categoryInfo.name).to.be.a('string');
+
+});
+
+![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/c07da7b0-d475-42f6-9609-5cf183950fd6)
 
