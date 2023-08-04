@@ -81,3 +81,22 @@ pm.test("Yanıtta durum özelliği var", function () {
 });
 
 ![Pet Güncelleme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/778b9ff6-a661-4274-91d2-2a7030d25bda)
+
+👨🏻‍💻 Petlerin Listesi (https://petstore.swagger.io/v2/pet/findByStatus?status=available)
+
+pm.test("Evcil hayvanların listelendiğini doğrula", function () {
+    pm.expect(pm.response.code).to.equal(200);
+
+    const responseData = pm.response.json();
+
+    pm.expect(responseData.length).to.be.above(0);
+
+    for (let i = 0; i < responseData.length; i++) {
+        pm.expect(responseData[i].id).to.exist;
+        pm.expect(responseData[i].name).to.be.a('string');
+        pm.expect(responseData[i].status).to.be.oneOf(['available', 'pending', 'sold']);
+    }
+});
+
+![Petlerin Listesi](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/8ada1501-2ee0-4e8f-98d9-fd6f3d0669f0)
+
