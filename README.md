@@ -100,3 +100,12 @@ pm.test("Evcil hayvanların listelendiğini doğrula", function () {
 
 ![Petlerin Listesi](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/8ada1501-2ee0-4e8f-98d9-fd6f3d0669f0)
 
+👨🏻‍💻 Petlerin Resimlerini Getirme (https://petstore.swagger.io/v2/pet/12345)
+
+pm.test("Pet Resimlerini Getirme Testi", function () {
+    pm.expect(pm.response.text()).to.include("Pet resimleri alındı");
+});
+
+![Pet Resimleri Getirme](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/60ede347-8875-4872-9992-24335696fdd3)
+
+
