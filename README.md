@@ -1,6 +1,5 @@
  #### 👨🏻‍💻 Pet ekle (petName=Mia) 
  ***
-
 <details>
   <summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
  
@@ -33,7 +32,7 @@ pm.test("photoUrls dizisinin ve en az bir öğenin varlığını doğrulayın", 
     pm.expect(responseData).to.be.an('object');
     pm.expect(responseData.photoUrls).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1);
 });
-
+```
 </details>
 
 ![Pet Ekle (Post)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/d94028d8-eeb0-463a-b676-ab3d80424819)
@@ -92,7 +91,6 @@ pm.test("Yanıtta durum özelliği var", function () {
     pm.expect(pm.response.json()).to.have.property('status');
 });
 ```
-
 </details>
 
 ![Pet Güncelleme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/778b9ff6-a661-4274-91d2-2a7030d25bda)
@@ -157,7 +155,7 @@ pm.test("Kategori Bilgisi Doğrulama Testi", function () {
     pm.expect(categoryInfo.name).to.be.a('string');
 
 });
-
+```
 </details>
  
 ![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/c07da7b0-d475-42f6-9609-5cf183950fd6)
