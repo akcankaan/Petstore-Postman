@@ -129,3 +129,30 @@ pm.test("Kategori Bilgisi Doğrulama Testi", function () {
 
 ![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/c07da7b0-d475-42f6-9609-5cf183950fd6)
 
+👨🏻‍💻 Petlerin Bilgisi Getirme (https://petstore.swagger.io/v2/pet)
+
+pm.test("Durum kodu 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Yanıtta bir id özelliği var", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.id).to.exist;
+});
+
+pm.test("Yanıtta bir photoUrls özelliği var", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.photoUrls).to.exist;
+});
+
+pm.test("Yanıtın bir etiket özelliği var", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.tags).to.exist;
+});
+
+pm.test("Yanıtta durum özelliği var", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.status).to.exist;
+});
+
+![Pet Durumunu Güncelleme (Put)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/06b1fb91-6443-4b64-982a-262243a49abc)
