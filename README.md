@@ -1,9 +1,10 @@
  #### 👨🏻‍💻 Pet ekle (petName=Mia) 
-***
+ ***
 
 <details>
   <summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
-    ```javascript
+ 
+   ```javascript
 pm.test("Gövde eşleme dizesi", function () {
     pm.expect(pm.response.text()).to.include("Mia");
 });
@@ -32,8 +33,6 @@ pm.test("photoUrls dizisinin ve en az bir öğenin varlığını doğrulayın", 
     pm.expect(responseData).to.be.an('object');
     pm.expect(responseData.photoUrls).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1);
 });
-
-
 
 </details>
 
@@ -98,8 +97,12 @@ pm.test("Yanıtta durum özelliği var", function () {
 
 ![Pet Güncelleme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/778b9ff6-a661-4274-91d2-2a7030d25bda)
 
-👨🏻‍💻 Petlerin Listesi (https://petstore.swagger.io/v2/pet/findByStatus?status=available)
+#### 👨🏻‍💻 Petlerin Listesi (https://petstore.swagger.io/v2/pet/findByStatus?status=available)
+***
+<details>
+  <summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
 
+```javascript
 pm.test("Evcil hayvanların listelendiğini doğrula", function () {
     pm.expect(pm.response.code).to.equal(200);
 
@@ -113,19 +116,31 @@ pm.test("Evcil hayvanların listelendiğini doğrula", function () {
         pm.expect(responseData[i].status).to.be.oneOf(['available', 'pending', 'sold']);
     }
 });
+```
+</details>
 
 ![Petlerin Listesi](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/8ada1501-2ee0-4e8f-98d9-fd6f3d0669f0)
 
-👨🏻‍💻 Petlerin Resimlerini Getirme (https://petstore.swagger.io/v2/pet/12345)
-
-pm.test("Pet Resimlerini Getirme Testi", function () {
-    pm.expect(pm.response.text()).to.include("Pet resimleri alındı");
-});
+#### 👨🏻‍💻 Petlerin Resimlerini Getirme (https://petstore.swagger.io/v2/pet/12345)
+***
+<details>
+ <summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
+ 
+ ```javascript
+  pm.test("Pet Resimlerini Getirme Testi", function () {
+      pm.expect(pm.response.text()).to.include("Pet resimleri alındı");
+  });
+ ```
+</details>
 
 ![Pet Resimleri Getirme](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/60ede347-8875-4872-9992-24335696fdd3)
 
-👨🏻‍💻 Petlerin Bilgisi Getirme (https://petstore.swagger.io/v2/pet/12345)
-
+#### 👨🏻‍💻 Petlerin Bilgisi Getirme (https://petstore.swagger.io/v2/pet/12345)
+***
+<details>
+<summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
+ 
+ ```javascript
 pm.test("Kategori Bilgisi Doğrulama Testi", function () {
     pm.response.to.have.status(200);
 
@@ -143,10 +158,16 @@ pm.test("Kategori Bilgisi Doğrulama Testi", function () {
 
 });
 
+</details>
+ 
 ![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/c07da7b0-d475-42f6-9609-5cf183950fd6)
 
-👨🏻‍💻 Pet Durumu Güncelleme (https://petstore.swagger.io/v2/pet)
-
+#### 👨🏻‍💻 Pet Durumu Güncelleme (https://petstore.swagger.io/v2/pet)
+***
+<details>
+ <summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
+ 
+ ```javascript
 pm.test("Durum kodu 200", function () {
     pm.response.to.have.status(200);
 });
@@ -169,20 +190,33 @@ pm.test("Yanıtın bir etiket özelliği var", function () {
 pm.test("Yanıtta durum özelliği var", function () {
     var jsonData = pm.response.json();
     pm.expect(jsonData.status).to.exist;
+    ```
 });
+```
+</details>
 
 ![Pet Durumunu Güncelleme (Put)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/06b1fb91-6443-4b64-982a-262243a49abc)
 
-👨🏻‍💻 Pet Etiketini Güncelleme (https://petstore.swagger.io/v2/pet)
-
+#### 👨🏻‍💻 Pet Etiketini Güncelleme (https://petstore.swagger.io/v2/pet)
+***
+<details>
+<summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
+ 
+ ```javascript
 pm.test("Durum kodu 500", function () {
     pm.response.to.have.status(500);
 });
+```
+</details>
 
 ![Pet Etiketini Güncelleme (Put)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/f61eb13e-b579-4ef2-8618-994f7958207c)
 
-👨🏻‍💻 Kategori Listesi (https://petstore.swagger.io/v2/pet/findByStatus?status=available)
+#### 👨🏻‍💻 Kategori Listesi (https://petstore.swagger.io/v2/pet/findByStatus?status=available)
+***
+<details>
+<summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
 
+```javascript
 pm.test("Evcil hayvan kategori listesini başarıyla getirildiğini doğrula", function () {
     pm.expect(pm.response.code).to.equal(200);
     const responseData = pm.response.json();
@@ -208,16 +242,24 @@ pm.test("Kategori özelliklerini doğrula", function () {
         pm.expect(pet).to.have.property('status').that.is.a('string').and.equals('available');
     });
 });
+```
+</details>
 
 ![Kategori Listesi](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/5a8f3207-3a34-45bc-bef3-ab72b51053a2)
 
-👨🏻‍💻 Pet Silme (https://petstore.swagger.io/v2/pet/12345)
+#### 👨🏻‍💻 Pet Silme (https://petstore.swagger.io/v2/pet/12345)
+***
+<details>
+<summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
 
+```javascript
 const petIdToDelete = 12345;
 
 pm.test("Evcil hayvanı başarıyla sildiğini doğrula", function () {
     pm.expect(pm.response.code).to.equal(200);
     pm.expect(pm.response.json().message).to.equal(`${petIdToDelete}`);
 });
+```
+</details>
 
 ![Pet Silme (Delete)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/3d1e584b-4be7-4821-b7d2-288cd89a54cb)
