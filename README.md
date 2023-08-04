@@ -59,8 +59,12 @@ pm.test("Yanıt evcil hayvan ayrıntılarını içeriyor", function () {
 
 ![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/e42de68e-549c-4229-bbd1-6d896b8453f9)
 
-👨🏻‍💻 Pet Güncelleme (petName=Max) (https://petstore.swagger.io/v2/pet)
+####👨🏻‍💻 Pet Güncelleme (petName=Max) (https://petstore.swagger.io/v2/pet)
+***
+<details>
+  <summary>(<i>Testi görüntülemek için tıklayın</i>)</summary>
 
+```javascript
 pm.test("Durum kodu 200", function () {
     pm.response.to.have.status(200);
 });
