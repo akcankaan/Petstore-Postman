@@ -129,7 +129,7 @@ pm.test("Kategori Bilgisi Doğrulama Testi", function () {
 
 ![Pet Bigisi Getirme (Get)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/c07da7b0-d475-42f6-9609-5cf183950fd6)
 
-👨🏻‍💻 Petlerin Bilgisi Getirme (https://petstore.swagger.io/v2/pet)
+👨🏻‍💻 Pet Durumu Güncelleme (https://petstore.swagger.io/v2/pet)
 
 pm.test("Durum kodu 200", function () {
     pm.response.to.have.status(200);
@@ -156,3 +156,52 @@ pm.test("Yanıtta durum özelliği var", function () {
 });
 
 ![Pet Durumunu Güncelleme (Put)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/06b1fb91-6443-4b64-982a-262243a49abc)
+
+👨🏻‍💻 Pet Etiketini Güncelleme (https://petstore.swagger.io/v2/pet)
+
+pm.test("Durum kodu 500", function () {
+    pm.response.to.have.status(500);
+});
+
+![Pet Etiketini Güncelleme (Put)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/f61eb13e-b579-4ef2-8618-994f7958207c)
+
+👨🏻‍💻 Kategori Listesi (https://petstore.swagger.io/v2/pet/findByStatus?status=available)
+
+pm.test("Evcil hayvan kategori listesini başarıyla getirildiğini doğrula", function () {
+    pm.expect(pm.response.code).to.equal(200);
+    const responseData = pm.response.json();
+    pm.expect(responseData).to.not.be.empty;
+});
+
+pm.test("Kategori özelliklerini doğrula", function () {
+    const responseData = pm.response.json();
+
+    responseData.forEach(function (pet) {
+        pm.expect(pet).to.have.property('id').that.is.a('number');
+        pm.expect(pet).to.have.property('name').that.is.a('string');
+        pm.expect(pet).to.have.property('photoUrls').that.is.an('array');
+
+        const tags = pet.tags;
+        pm.expect(tags).to.be.an('array');
+
+        tags.forEach(function (tag) {
+            pm.expect(tag).to.have.property('id').that.is.a('number');
+            pm.expect(tag).to.have.property('name').that.is.a('string');
+        });
+
+        pm.expect(pet).to.have.property('status').that.is.a('string').and.equals('available');
+    });
+});
+
+![Kategori Listesi](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/5a8f3207-3a34-45bc-bef3-ab72b51053a2)
+
+👨🏻‍💻 Pet Silme (https://petstore.swagger.io/v2/pet/12345)
+
+const petIdToDelete = 12345;
+
+pm.test("Evcil hayvanı başarıyla sildiğini doğrula", function () {
+    pm.expect(pm.response.code).to.equal(200);
+    pm.expect(pm.response.json().message).to.equal(`${petIdToDelete}`);
+});
+
+![Pet Silme (Delete)](https://github.com/akcankaan/Postman-API-Test-Petstore-swagger.io/assets/63432799/3d1e584b-4be7-4821-b7d2-288cd89a54cb)
