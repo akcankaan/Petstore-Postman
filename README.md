@@ -271,9 +271,7 @@ pm.test("Evcil hayvanı başarıyla sildiğini doğrula", function () {
 <details>
 <summary>(<i>Monitörü görüntülemek için tıklayın</i>)</summary>
  
-```javascript
 
 ![screencapture-web-postman-co-workspace-My-Workspace-fa8d9588-c962-4a4a-8a01-c4b4ec10f5fe-monitor-PetstoreMonitor-1ee3124f-0c8a-48d0-bbd0-bb48e2f329ea-2023-08-04-09_48_47](https://github.com/akcankaan/PetstoreAPITests/assets/63432799/3f513105-1020-4106-9dae-439796a40dd5)
 
-```
 </details>
